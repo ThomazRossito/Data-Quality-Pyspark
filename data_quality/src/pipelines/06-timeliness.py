@@ -1,7 +1,6 @@
 # you can examine timestamps and ensure that the data
 # is up-to-date based on a specified criterion
 
-
 # Import Functions
 from data_quality.src.functions.usefull import (
     sessionSpark,

@@ -1,6 +1,5 @@
-# Exclusividade:
-# Isso garante que cada registro ou entidade de dados seja distinto
-# e não tenha duplicatas no conjunto de dados.
+# Suppose you have a csv file containing information about
+# employees with duplicate values.
 
 
 # Import Functions
