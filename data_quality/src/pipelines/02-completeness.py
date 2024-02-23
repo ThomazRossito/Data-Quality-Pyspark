@@ -1,19 +1,19 @@
 # Suppose you have a csv file containing
 # information about employees with duplicate values.
 
-## Import Functions
+# Import Functions
 from data_quality.src.functions.usefull import (
-        sessionSpark,
-        read_csv,
-        reduce_log
-    )
+    sessionSpark,
+    read_csv,
+    reduce_log
+)
 
 from pyspark.sql.functions import (
-        col,
-        sum
-    )
+    col,
+    sum
+)
 
-## Import Spark Session
+# Import Spark Session
 spark = sessionSpark("data-quality-checks")
 
 # Reduce logging
@@ -34,8 +34,8 @@ if __name__ == '__main__':
 
     print(end="\n\n")
     print("Check completeness: Count null values in each column")
-    df_count_null = df.select(*(sum(col(c).isNull().cast("int")).alias(c) for c in df.columns))
-
+    df_count_null = df.select(
+        *(sum(col(c).isNull().cast("int")).alias(c) for c in df.columns))
 
     print(end="\n\n")
     print("Display count null DataFrame")
