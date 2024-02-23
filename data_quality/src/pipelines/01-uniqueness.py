@@ -1,16 +1,16 @@
-## Exclusividade:
+# Exclusividade:
 # Isso garante que cada registro ou entidade de dados seja distinto
 # e não tenha duplicatas no conjunto de dados.
 
 
-## Import Functions
+# Import Functions
 from data_quality.src.functions.usefull import (
-        sessionSpark,
-        read_csv,
-        reduce_log
-    )
+    sessionSpark,
+    read_csv,
+    reduce_log
+)
 
-## Import Spark Session
+# Import Spark Session
 spark = sessionSpark("data-quality-checks")
 
 # Reduce logging

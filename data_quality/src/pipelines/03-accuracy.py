@@ -2,19 +2,19 @@
 # and we want to ensure the accuracy of the age information by
 # identifying and handling potential errors.
 
-## Import Functions
+# Import Functions
 from data_quality.src.functions.usefull import (
-        sessionSpark,
-        read_csv,
-        reduce_log
-    )
+    sessionSpark,
+    read_csv,
+    reduce_log
+)
 
 from pyspark.sql.functions import (
-        col,
-        when
-    )
+    col,
+    when
+)
 
-## Import Spark Session
+# Import Spark Session
 spark = sessionSpark("data-quality-checks")
 
 # Reduce logging
@@ -35,10 +35,10 @@ if __name__ == '__main__':
 
     print(end="\n\n")
     print("Accuracy check: Identify and handle errors in the 'Age' column")
-    df_cleaned = (df.withColumn("Age", when( (col("Age").cast("int").isNull())
-                                                      | (col("Age") <= 0)
-                                                      | (col("Age") >= 110),None)
-                                                .otherwise(col("Age"))))
+    df_cleaned = (df.withColumn("Age", when((col("Age").cast("int").isNull())
+                                            | (col("Age") <= 0)
+                                            | (col("Age") >= 110), None)
+                                .otherwise(col("Age"))))
 
     print(end="\n\n")
     print("Display the cleaned DataFrame")

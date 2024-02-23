@@ -3,17 +3,18 @@
 
 # Suppose you have two csv files representing information about employees,
 # but the column names are slightly different. The goal is to load these CSV files
-# into PySpark dataframes and ensure consistency in column names before further processing.
+# into PySpark dataframes and ensure consistency in column names before
+# further processing.
 
-## Import Functions
+# Import Functions
 from data_quality.src.functions.usefull import (
-        sessionSpark,
-        read_csv,
-        reduce_log
-    )
+    sessionSpark,
+    read_csv,
+    reduce_log
+)
 
 
-## Import Spark Session
+# Import Spark Session
 spark = sessionSpark("data-quality-checks")
 
 # Reduce logging
@@ -38,13 +39,12 @@ if __name__ == '__main__':
     print("Display the original DataFrame2 Columns")
     print(df2.columns)
 
-
     print(end="\n\n")
-    print("Ensure consistency in column names, rename columns [withColumnRenamed]")
+    print(
+        "Ensure consistency in column names, rename columns [withColumnRenamed]")
     df1 = df1.withColumnRenamed("City_City", "City")
     df2 = (df2.withColumnRenamed("Age_Age", "Age")
               .withColumnRenamed("Occupation_Occupation", "Occupation"))
-
 
     print(end="\n\n")
     print("Display DataFrame1 Columns Consistency")
@@ -53,4 +53,3 @@ if __name__ == '__main__':
     print(end="\n\n")
     print("Display DataFrame2 Columns Consistency")
     print(df2.columns)
-

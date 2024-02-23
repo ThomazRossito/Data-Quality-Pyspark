@@ -1,20 +1,21 @@
 # Suppose that your csv file contain information about employees and
 # we want to ensure the validity of the ‘Occupation’ column. We’ll set a rule
-# that each employee’s occupation must be one of a predefined set of valid occupations.
+# that each employee’s occupation must be one of a predefined set of valid
+# occupations.
 
-## Import Functions
+# Import Functions
 from data_quality.src.functions.usefull import (
-        sessionSpark,
-        read_csv,
-        reduce_log
-    )
+    sessionSpark,
+    read_csv,
+    reduce_log
+)
 
 from pyspark.sql.functions import (
-        col,
-        when
-    )
+    col,
+    when
+)
 
-## Import Spark Session
+# Import Spark Session
 spark = sessionSpark("data-quality-checks")
 
 # Reduce logging
@@ -39,10 +40,18 @@ if __name__ == '__main__':
     print(end="\n\n")
     print("Validity check: Ensure 'Occupation' is one of the valid occupations")
 
-    valid_occupations = ["Engineer", "Teacher", "Software Developer", "Accountant", "Marketing Manager"]
-    df_valid = (df.withColumn("Occupation", when(col("Occupation").isin(valid_occupations),
-                                                          col("Occupation"))
-                                                    .otherwise(None)))
+    valid_occupations = [
+        "Engineer",
+        "Teacher",
+        "Software Developer",
+        "Accountant",
+        "Marketing Manager"]
+    df_valid = (
+        df.withColumn(
+            "Occupation",
+            when(
+                col("Occupation").isin(valid_occupations),
+                col("Occupation")) .otherwise(None)))
 
     print(end="\n\n")
     print("Display valid occupations notNull")
