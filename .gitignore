@@ -4,5 +4,6 @@
 __pycache__/
 src/functions/__pycache__/
 functions/__pycache__/
+src/.DS_Store/
 .idea/
 .DS_Store/
