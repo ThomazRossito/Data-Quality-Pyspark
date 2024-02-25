@@ -39,4 +39,4 @@ if __name__ == '__main__':
 
     print(end="\n\n")
     print("Display count null DataFrame")
-    df_count_null.show(truncate=False)
+    df_count_null.show(truncate=0)
