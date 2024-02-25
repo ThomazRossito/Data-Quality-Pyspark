@@ -7,3 +7,11 @@ functions/__pycache__/
 src/.DS_Store/
 .idea/
 .DS_Store/
+../.DS_Store
+.DS_Store
+src/.DS_Store
+build/
+dist/
+src/lib_data_quality.egg-info
+**src/lib_data_quality.egg-info**
+**src/lib_data_quality.egg-info/**
