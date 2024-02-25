@@ -1,8 +1,0 @@
-**.idea/**
-**.DS_Store/**
-**__pycache__/**
-__pycache__/
-src/functions/__pycache__/
-functions/__pycache__/
-.idea/
-.DS_Store/
