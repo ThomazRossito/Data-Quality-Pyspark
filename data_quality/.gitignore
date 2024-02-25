@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 .idea/
 __pycache__/
 data_quality/.DS_Store/
 data_quality/src/.DS_Store/
 **/.DS_Store
+=======
+**.idea/**
+**__pycache__/**
+>>>>>>> dev
