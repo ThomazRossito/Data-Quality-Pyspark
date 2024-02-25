@@ -42,4 +42,4 @@ if __name__ == '__main__':
 
     print(end="\n\n")
     print("Display the cleaned DataFrame")
-    df_cleaned.show(truncate=False)
+    df_cleaned.show(truncate=0)
