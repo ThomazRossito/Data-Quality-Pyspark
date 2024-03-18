@@ -17,7 +17,6 @@ reduce_log(spark)
 # Define the path to the CSV file
 file_path = "../data/exclusividade.csv"
 
-
 if __name__ == '__main__':
 
     # Load the CSV file into a PySpark DataFrame
