@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     print(end="\n\n")
     print("Display the original DataFrame")
-    df.show(truncate=False)
+    df.orderBy("Name").show(truncate=False)
 
     print(end="\n\n")
     print("display rows with duplicate values across all columns")
