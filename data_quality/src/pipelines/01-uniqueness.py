@@ -1,7 +1,6 @@
 # Suppose you have a csv file containing information about
 # employees with duplicate values.
 
-
 # Import Functions
 from data_quality.src.functions.usefull import (
     sessionSpark,
