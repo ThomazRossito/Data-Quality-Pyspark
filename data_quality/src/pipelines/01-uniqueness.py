@@ -1,7 +1,6 @@
 # Suppose you have a csv file containing information about
 # employees with duplicate values.
 
-
 # Import Functions
 from data_quality.src.functions.usefull import (
     sessionSpark,
@@ -17,7 +16,6 @@ reduce_log(spark)
 
 # Define the path to the CSV file
 file_path = "../data/exclusividade.csv"
-
 
 if __name__ == '__main__':
 
