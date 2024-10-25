@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="QA" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="QA" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="data_quality_spark" project-jdk-type="Python SDK" />
 </project>

@@ -1,6 +1,0 @@
-Metadata-Version: 2.1
-Name: lib-data-quality
-Version: 0.0.0
-Summary: Lib de Data Quality
-Author-email: thomaz.rossito@terra.com.br
-Requires-Dist: setuptools
