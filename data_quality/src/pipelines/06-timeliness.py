@@ -24,9 +24,7 @@ reduce_log(spark)
 # Define the path to the CSV file
 file_path = "../data/timeliness.csv"
 
-
-if __name__ == '__main__':
-
+def execute():
     # Load the CSV file into a PySpark DataFrame
     df = read_csv(spark, "csv", "true", ",", "true", file_path)
 
@@ -37,9 +35,13 @@ if __name__ == '__main__':
     print(end="\n\n")
     print("Timeliness check: Filter events that occurred within the last 7 days")
     days_threshold = 7
-    df_timely = df.filter(
-        (current_date() - col("EventDate")).cast("int") <= days_threshold)
+    df_timely = df.filter((current_date() - col("EventDate")).cast("int") <= days_threshold)
 
     print(end="\n\n")
     print("Display the DataFrame after handling timeliness issues")
     df_timely.show(truncate=False)
+
+    spark.sparkContext.setLocalProperty("spark.scheduler.pool", "timeliness")
+
+if __name__ == '__main__':
+    execute()

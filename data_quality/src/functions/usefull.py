@@ -9,7 +9,7 @@ def sessionSpark(appName: str):
             .master("local[*]")
             .appName(appName)
             ## Delta Lake
-            .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.0.0")
+            .config("spark.jars.packages", "io.delta:delta-spark_2.12:3.1.0")
             .config("spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension")
             .config("spark.sql.catalog.spark_catalog", "org.apache.spark.sql.delta.catalog.DeltaCatalog")
             ## Hive SQL
@@ -30,4 +30,7 @@ def read_csv(spark: SparkSession, format: str, header: str, sep: str, inferSchem
 
 # Reduce logging
 def reduce_log(spark: SparkSession):
-    return spark.sparkContext.setLogLevel("WARN")
+    return spark.sparkContext.setLogLevel("INFO")
+
+def rename_columns(df, new_names):
+    return df.withColumnsRenamed(new_names)

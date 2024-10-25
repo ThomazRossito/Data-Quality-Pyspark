@@ -10,9 +10,10 @@
 from data_quality.src.functions.usefull import (
     sessionSpark,
     read_csv,
-    reduce_log
+    reduce_log,
+    rename_columns
 )
-
+from data_quality.src.functions.logger import logger
 
 # Import Spark Session
 spark = sessionSpark("data-quality-checks")
@@ -24,32 +25,38 @@ reduce_log(spark)
 file1_path = "../data/consistency_1.csv"
 file2_path = "../data/consistency_2.csv"
 
-
-if __name__ == '__main__':
-
+def execute():
     # Load the CSV file into a PySpark DataFrame
     df1 = read_csv(spark, "csv", "true", ",", "true", file1_path)
     df2 = read_csv(spark, "csv", "true", ",", "true", file2_path)
 
     print(end="\n\n")
-    print("Display the original DataFrame1 Columns")
-    print(df1.columns)
+    logger.info("Display the original DataFrame1 Columns")
+    logger.info(df1.columns)
 
     print(end="\n\n")
-    print("Display the original DataFrame2 Columns")
-    print(df2.columns)
+    logger.info("Display the original DataFrame2 Columns")
+    logger.info(df2.columns)
 
     print(end="\n\n")
-    print(
-        "Ensure consistency in column names, rename columns [withColumnRenamed]")
-    df1 = df1.withColumnRenamed("City_City", "City")
-    df2 = (df2.withColumnRenamed("Age_Age", "Age")
-              .withColumnRenamed("Occupation_Occupation", "Occupation"))
+    logger.info("Ensure consistency in column names, rename columns [withColumnRenamed]")
+
+    new_columns_1 = {"City_City": "City"}
+    df1 = rename_columns(df1, new_columns_1)
+
+    new_columns_2 = {"Age_Age": "Age", "Occupation_Occupation": "Occupation"}
+    df2 = rename_columns(df2, new_columns_2)
 
     print(end="\n\n")
-    print("Display DataFrame1 Columns Consistency")
-    print(df1.columns)
+    logger.info("Display DataFrame1 Columns Consistency")
+    logger.info(df1.columns)
 
     print(end="\n\n")
-    print("Display DataFrame2 Columns Consistency")
-    print(df2.columns)
+    logger.info("Display DataFrame2 Columns Consistency")
+    logger.info(df2.columns)
+
+    spark.sparkContext.setLocalProperty("spark.scheduler.pool", "consistency")
+
+if __name__ == '__main__':
+    execute()
+

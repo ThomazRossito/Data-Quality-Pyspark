@@ -22,9 +22,7 @@ reduce_log(spark)
 # Define the path to the CSV file
 file_path = "../data/completeness.csv"
 
-
-if __name__ == '__main__':
-
+def execute():
     # Load the CSV file into a PySpark DataFrame
     df = read_csv(spark, "csv", "true", ",", "true", file_path)
 
@@ -34,9 +32,13 @@ if __name__ == '__main__':
 
     print(end="\n\n")
     print("Check completeness: Count null values in each column")
-    df_count_null = df.select(
-        *(sum(col(c).isNull().cast("int")).alias(c) for c in df.columns))
+    df_count_null = df.select(*(sum(col(c).isNull().cast("int")).alias(c) for c in df.columns))
 
     print(end="\n\n")
     print("Display count null DataFrame")
     df_count_null.show(truncate=False)
+
+    spark.sparkContext.setLocalProperty("spark.scheduler.pool", "completeness")
+
+if __name__ == '__main__':
+    execute()

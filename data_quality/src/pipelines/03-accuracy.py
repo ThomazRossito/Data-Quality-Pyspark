@@ -23,9 +23,7 @@ reduce_log(spark)
 # Define the path to the CSV file
 file_path = "../data/accuracy.csv"
 
-
-if __name__ == '__main__':
-
+def execute():
     # Load the CSV file into a PySpark DataFrame
     df = read_csv(spark, "csv", "true", ",", "true", file_path)
 
@@ -37,10 +35,15 @@ if __name__ == '__main__':
     print("Accuracy check: Identify and handle errors in the 'Age' column")
     df_cleaned = (
         df.withColumn("Age", when((col("Age").cast("int").isNull())
-                                  | (col("Age") <= 0)
-                                  | (col("Age") >= 110), None)
-                      .otherwise(col("Age"))))
+                                      | (col("Age") <= 0)
+                                      | (col("Age") >= 110), None)
+                                     .otherwise(col("Age"))))
 
     print(end="\n\n")
     print("Display the cleaned DataFrame")
     df_cleaned.show(truncate=False)
+
+    spark.sparkContext.setLocalProperty("spark.scheduler.pool", "accuracy")
+
+if __name__ == '__main__':
+    execute()

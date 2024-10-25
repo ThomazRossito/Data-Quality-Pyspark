@@ -24,9 +24,7 @@ reduce_log(spark)
 # Define the path to the CSV file
 file_path = "../data/validity.csv"
 
-
-if __name__ == '__main__':
-
+def execute():
     # Load the CSV file into a PySpark DataFrame
     df = read_csv(spark, "csv", "true", ",", "true", file_path)
 
@@ -40,12 +38,11 @@ if __name__ == '__main__':
     print(end="\n\n")
     print("Validity check: Ensure 'Occupation' is one of the valid occupations")
 
-    valid_occupations = [
-        "Engineer",
-        "Teacher",
-        "Software Developer",
-        "Accountant",
-        "Marketing Manager"]
+    valid_occupations = ["Engineer",
+                         "Teacher",
+                         "Software Developer",
+                         "Accountant",
+                         "Marketing Manager"]
 
     df_valid = (
         df.withColumn("Occupation", when(
@@ -60,3 +57,8 @@ if __name__ == '__main__':
     print(end="\n\n")
     print("Display valid occupations null")
     df_valid.filter(col("Occupation").isNull()).show(truncate=False)
+
+    spark.sparkContext.setLocalProperty("spark.scheduler.pool", "validity")
+
+if __name__ == '__main__':
+    execute()
