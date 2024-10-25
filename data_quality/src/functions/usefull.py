@@ -30,7 +30,7 @@ def read_csv(spark: SparkSession, format: str, header: str, sep: str, inferSchem
 
 # Reduce logging
 def reduce_log(spark: SparkSession):
-    return spark.sparkContext.setLogLevel("INFO")
+    return spark.sparkContext.setLogLevel("ERROR")
 
 def rename_columns(df, new_names):
     return df.withColumnsRenamed(new_names)

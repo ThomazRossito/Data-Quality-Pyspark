@@ -14,6 +14,8 @@ from pyspark.sql.functions import (
     when
 )
 
+from data_quality.src.functions.logger import logger
+
 # Import Spark Session
 spark = sessionSpark("data-quality-checks")
 
@@ -28,11 +30,11 @@ def execute():
     df = read_csv(spark, "csv", "true", ",", "true", file_path)
 
     print(end="\n\n")
-    print("Display the original DataFrame")
+    logger.info("Display the original DataFrame")
     df.show(truncate=False)
 
     print(end="\n\n")
-    print("Accuracy check: Identify and handle errors in the 'Age' column")
+    logger.info("Accuracy check: Identify and handle errors in the 'Age' column")
     df_cleaned = (
         df.withColumn("Age", when((col("Age").cast("int").isNull())
                                       | (col("Age") <= 0)
@@ -40,7 +42,7 @@ def execute():
                                      .otherwise(col("Age"))))
 
     print(end="\n\n")
-    print("Display the cleaned DataFrame")
+    logger.info("Display the cleaned DataFrame")
     df_cleaned.show(truncate=False)
 
     spark.sparkContext.setLocalProperty("spark.scheduler.pool", "accuracy")

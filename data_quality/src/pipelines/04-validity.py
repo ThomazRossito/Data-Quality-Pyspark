@@ -15,6 +15,8 @@ from pyspark.sql.functions import (
     when
 )
 
+from data_quality.src.functions.logger import logger
+
 # Import Spark Session
 spark = sessionSpark("data-quality-checks")
 
@@ -29,14 +31,14 @@ def execute():
     df = read_csv(spark, "csv", "true", ",", "true", file_path)
 
     print(end="\n\n")
-    print("Display the original DataFrame")
+    logger.info("Display the original DataFrame")
     df.show(truncate=False)
 
     print(end="\n\n")
-    print("We add the rule and ensure that values of “Occupation” are part of a predefined set of valid occupations.")
+    logger.info("We add the rule and ensure that values of “Occupation” are part of a predefined set of valid occupations.")
 
     print(end="\n\n")
-    print("Validity check: Ensure 'Occupation' is one of the valid occupations")
+    logger.info("Validity check: Ensure 'Occupation' is one of the valid occupations")
 
     valid_occupations = ["Engineer",
                          "Teacher",
@@ -51,11 +53,11 @@ def execute():
             .otherwise(None)))
 
     print(end="\n\n")
-    print("Display valid occupations notNull")
+    logger.info("Display valid occupations notNull")
     df_valid.filter(col("Occupation").isNotNull()).show(truncate=False)
 
     print(end="\n\n")
-    print("Display valid occupations null")
+    logger.info("Display valid occupations null")
     df_valid.filter(col("Occupation").isNull()).show(truncate=False)
 
     spark.sparkContext.setLocalProperty("spark.scheduler.pool", "validity")

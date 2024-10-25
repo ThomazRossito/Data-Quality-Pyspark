@@ -13,6 +13,8 @@ from pyspark.sql.functions import (
     sum
 )
 
+from data_quality.src.functions.logger import logger
+
 # Import Spark Session
 spark = sessionSpark("data-quality-checks")
 
@@ -27,15 +29,15 @@ def execute():
     df = read_csv(spark, "csv", "true", ",", "true", file_path)
 
     print(end="\n\n")
-    print("Display the original DataFrame")
+    logger.info("Display the original DataFrame")
     df.show(truncate=False)
 
     print(end="\n\n")
-    print("Check completeness: Count null values in each column")
+    logger.info("Check completeness: Count null values in each column")
     df_count_null = df.select(*(sum(col(c).isNull().cast("int")).alias(c) for c in df.columns))
 
     print(end="\n\n")
-    print("Display count null DataFrame")
+    logger.info("Display count null DataFrame")
     df_count_null.show(truncate=False)
 
     spark.sparkContext.setLocalProperty("spark.scheduler.pool", "completeness")

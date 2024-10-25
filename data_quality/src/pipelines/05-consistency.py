@@ -13,6 +13,7 @@ from data_quality.src.functions.usefull import (
     reduce_log,
     rename_columns
 )
+
 from data_quality.src.functions.logger import logger
 
 # Import Spark Session
